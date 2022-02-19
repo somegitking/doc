@@ -513,7 +513,7 @@ create table test1 (
 alter table test1
   add column no int;
 
-alter table test1 
+alter table test1
   add column age int;
 
 alter table test1
@@ -671,13 +671,13 @@ drop view worker;
 
 1) 테이블의 제약 조건 조회
 
-select table_name, constraint_name, constraint_type 
+select table_name, constraint_name, constraint_type
 from table_constraints;
 
 
 2) 테이블의 키 컬럼 정보 조회
 
-select table_name, column_name, constraint_name 
+select table_name, column_name, constraint_name
 from key_column_usage;
 
 
@@ -688,6 +688,5 @@ select
   t2.column_name,
   t2.constraint_name,
   t1.constraint_type
-from table_constraints t1 
+from table_constraints t1
   inner join key_column_usage t2 on t2.constraint_name=t1.constraint_name;
-
