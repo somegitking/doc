@@ -212,11 +212,11 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
   );
 
 입력 테스터:
-> insert into test1(c1) values('2017-11-21');
+> insert into test1(c1) values('2022-02-21');
 > insert into test1(c2) values('16:12:35');
-> insert into test1(c3) values('2017-9-7 16:5:3');
-> insert into test1(c1) values('2017-11-21 16:13:33'); /* 날짜 정보만 저장*/
-> insert into test1(c2) values('2017-11-21 16:13:33'); /* 시간 정보만 저장*/
+> insert into test1(c3) values('2022-2-21 16:5:3');
+> insert into test1(c1) values('2022-02-21 16:13:33'); /* 날짜 정보만 저장*/
+> insert into test1(c2) values('2022-02-21 16:13:33'); /* 시간 정보만 저장*/
 
 #### boolean
 - 보통 true, false를 의미하는 값을 저장할 때는 정수 1 또는 0으로 표현한다.
@@ -228,7 +228,6 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
   c2 int,
   c3 boolean
   );
-
 
 > insert into test1(c1) values('Y'); /* yes */
 > insert into test1(c1) values('N'); /* no */
@@ -393,7 +392,7 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 > insert into test1(no,name,age,kor,eng,math) values(4,'c',20,81,81,81);
 
 /* 번호가 중복되었기 때문에 입력 거절 */
-> insert into test1(no,name,age,kor,eng,math) values(4,'d',21,81,81,81);
+> insert into test1(no,name,age,kor,e ng,math) values(4,'d',21,81,81,81);
 
 /* 번호는 중복되지 않았지만, name과 age값이 중복되는 경우를 막을 수 없다*/
 > insert into test1(no,name,age,kor,eng,math) values(5,'c',20,81,81,81);
@@ -422,7 +421,7 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
   kor int,
   eng int,
   math int,
-  constraint test1_pk primary key(no),
+  constraint primary key(no),
   constraint test1_uk unique (name, age)
   );
 
