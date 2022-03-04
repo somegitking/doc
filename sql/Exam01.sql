@@ -4,7 +4,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 - 데이터베이스(database) = 스키마(schema)
 - 테이블(table)
 - 뷰(view)
-- 트리거(trigger)
+- 트리거(trigger=listener)
   - 특정 조건에서 자동으로 호출되는 함수
   - 특정 조건? SQL 실행 전/후 등
   - OOP 디자인 패턴에서 옵저버에 해당한다.
@@ -80,7 +80,7 @@ DB 객체(테이블, 뷰, 함수, 트리거 등)를 생성, 변경, 삭제하는
 > insert into test1(no, name) values(3, null);
 
 #### 기본값 지정하기
-입력할 때 컬럼을 생략하면 지정된 기본값이 대신 입력된다.
+입력 값을 생략하면 해당 컬럼에 지정된 기본값이 대신 입력된다.
 > create table test1(
     no int not null,
     name varchar(20) default 'noname',
@@ -217,6 +217,11 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 > insert into test1(c3) values('2022-2-21 16:5:3');
 > insert into test1(c1) values('2022-02-21 16:13:33'); /* 날짜 정보만 저장*/
 > insert into test1(c2) values('2022-02-21 16:13:33'); /* 시간 정보만 저장*/
+<<<<<<< HEAD
+=======
+> insert into test1(c3) values('2022-02-21'); /* 시간 정보는 0을 설정된다.*/
+> insert into test1(c3) values('16:13:33'); /* 실행 오류!*/
+>>>>>>> 25ff6dd611d377a7227663adfae032fd18c5f2d3
 
 #### boolean
 - 보통 true, false를 의미하는 값을 저장할 때는 정수 1 또는 0으로 표현한다.
@@ -256,15 +261,17 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 
 ### 키 컬럼 지정
 
+key column : 데이터를 구분할 때 사용하는 값
+
 테이블:
-- no, name, email, id, pwd, jumin, tel, postno, basic_addr, gender
+- name, email, jumin, id, pwd, tel, postno, basic_addr, gender
 
 #### key vs candidate key
 
 - key
   - 데이터를 구분할 때 사용하는 컬럼들의 집합
   - 예)
-    - {email}, {jumin}, {id}, {name, tel}, {tel, basic, gender, name}
+    - {email}, {jumin}, {id}, {name, tel}, {tel, basic_addr, gender, name}
     - {name, jumin}, {email, id}, {id, name, email} ...
 - candidate key (후보키 = 최소키)
   - key 들 중에서 최소 항목으로 줄인 키
@@ -302,9 +309,8 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
     - pk 값을 변경하면 그 값을 사용한 모든 데이터에 영향을 끼친다.
     - 그래서 PK 값을 다른 데이터에서 사용한 경우,
       DBMS는 PK 값을 변경하지 못하도록 통제한다.
-    - 이렇게 값을 변경될 수 있는 경우에는 PK로 사용하지 말라.
+    - 이렇게 변경될 수 있는 값인 경우, PK로 사용하지 말라.
     - 대신 회원 번호와 같은 임의의 키(인공 키)를 만들어 사용하는 것이 좋다.
-
 
 #### primary key
 - 테이블의 데이터를 구분할 때 사용하는 컬럼들이다.
@@ -398,7 +404,7 @@ DBMS 중에는 고정 크기인 컬럼의 값을 비교할 때 빈자리까지 �
 > insert into test1(no,name,age,kor,eng,math) values(5,'c',20,81,81,81);
 
 - 위와 같은 경우를 대비해 준비된 문법이 unique이다.
-- PK는 아니지만 PK처럼 중복을 허락하지 않는 컬럼을 지정할 때 사용한다.
+- PK는 아니지만 PK처럼 중복되어서는 안되는 컬럼을 지정할 때 사용한다.
 - 그래서 PK를 대신해서 사용할 수 있는 key라고 해서 "대안키(alternate key)"라고 부른다.
 - 즉 대안키는 DBMS에서 unique 컬럼으로 지정한다.
 
@@ -554,7 +560,7 @@ insert into test1(no,name,age,kor,eng,math,sum,aver)
 
 
 ### 컬럼 값 자동 증가
-- 숫자 타입의 PK 컬럼인 경우 값을 1씩 자동 증가시킬 수 있다.
+- 숫자 타입의 PK 컬럼 또는 Unique 컬럼인 경우 값을 1씩 자동 증가시킬 수 있다.
 - 즉 데이터를 입력할 때 해당 컬럼의 값을 넣지 않아도 자동으로 증가된다.
 - 단 삭제를 통해 중간에 비어있는 번호는 다시 채우지 않는다.
   즉 증가된 번호는 계속 앞으로 증가할 뿐이다.
